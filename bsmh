@@ -1,0 +1,387 @@
+html_content = """<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مشغل بصمة فرح للتزيين النسائي</title>
+    <!-- استدعاء خطوط جوجل -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- استدعاء مكتبة الأيقونات (FontAwesome) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #fce8eb;
+            --btn-bg: #ffffff;
+            --text-main: #333333;
+            --text-muted: #666666;
+            --accent-color: #d1828c;
+            --hover-shadow: rgba(209, 130, 140, 0.3);
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: linear-gradient(135deg, #fdf5f6 0%, #fce8eb 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 30px 20px;
+            display: flex;
+            justify-content: center;
+            color: var(--text-main);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            text-align: center;
+        }
+
+        /* الشعار */
+        .logo {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #ffffff;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            margin-bottom: 15px;
+            background-color: #fff;
+        }
+
+        h1 {
+            font-size: 22px;
+            font-weight: 700;
+            margin: 0 0 5px;
+            color: #4a2c2e;
+        }
+
+        p.handle {
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        /* أزرار الروابط الأساسية (التواصل) */
+        .link-btn {
+            display: flex;
+            align-items: center;
+            background: var(--btn-bg);
+            color: var(--text-main);
+            text-decoration: none;
+            padding: 16px 20px;
+            margin-bottom: 15px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 16px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            width: 100%;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .link-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px var(--hover-shadow);
+            border-color: #f7dadd;
+        }
+
+        .link-btn i.fa-brands, .link-btn i.fa-solid {
+            font-size: 22px;
+            width: 30px;
+            text-align: center;
+            position: absolute;
+            right: 20px;
+        }
+
+        .link-btn span {
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        /* ألوان الأيقونات */
+        .fa-whatsapp { color: #25D366; }
+        .fa-instagram { color: #E1306C; }
+        .fa-tiktok { color: #000000; }
+        .fa-map-marker-alt { color: #EA4335; }
+
+        /* عنوان قسم الأسعار */
+        .prices-header {
+            margin: 30px 0 15px;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        /* لوحات الأقسام (Accordion) */
+        .accordion-btn {
+            background-color: var(--btn-bg);
+            color: #4a2c2e;
+            cursor: pointer;
+            padding: 18px 20px;
+            width: 100%;
+            border: 1px solid #fce8eb;
+            text-align: right;
+            outline: none;
+            font-size: 17px;
+            font-weight: 700;
+            font-family: 'Tajawal', sans-serif;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .accordion-btn i {
+            color: var(--accent-color);
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-btn.active i {
+            transform: rotate(180deg);
+        }
+
+        .accordion-btn:hover, .accordion-btn.active {
+            background-color: #fff5f6;
+            border-color: #f7dadd;
+            box-shadow: 0 4px 12px rgba(209, 130, 140, 0.15);
+        }
+
+        .accordion-content {
+            background-color: white;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            border-radius: 12px;
+            margin-top: -5px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+        }
+
+        .accordion-inner {
+            padding: 15px 20px;
+            border: 1px solid #fce8eb;
+            border-top: none;
+            border-radius: 0 0 12px 12px;
+        }
+
+        .price-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px dashed #f0f0f0;
+            font-size: 15px;
+            color: #444;
+            text-align: right;
+        }
+
+        .price-item:last-child {
+            border-bottom: none;
+            padding-bottom: 5px;
+        }
+        
+        .price-item:first-child {
+            padding-top: 5px;
+        }
+
+        .price-val {
+            font-weight: 700;
+            color: var(--accent-color);
+            background: #fff5f6;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 14px;
+            direction: ltr; /* لضبط تنسيق العملة مع الرقم */
+            white-space: nowrap;
+        }
+
+        hr.divider {
+            border: 0;
+            height: 1px;
+            background: #f7dadd;
+            margin: 30px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- الشعار -->
+        <img src="1784121725300.png" alt="شعار بصمة فرح" class="logo">
+        
+        <h1>مشغل بصمة فرح للتزيين النسائي</h1>
+        <p class="handle">@bsmh_farh</p>
+
+        <!-- أزرار التواصل -->
+        <a href="https://wa.me/966505643326" class="link-btn" target="_blank">
+            <i class="fa-brands fa-whatsapp"></i>
+            <span>رقم التواصل</span>
+        </a>
+
+        <a href="https://www.instagram.com/hairstylesoaad?utm_source=qr" class="link-btn" target="_blank">
+            <i class="fa-brands fa-instagram"></i>
+            <span>انستقرام</span>
+        </a>
+
+        <a href="https://www.tiktok.com/@hairstylesoaad?_r=1&_t=ZS-983YAN9f68b" class="link-btn" target="_blank">
+            <i class="fa-brands fa-tiktok"></i>
+            <span>تيك توك تسريحات</span>
+        </a>
+
+        <a href="https://www.tiktok.com/@bsmh_farh?_r=1&_t=ZS-983Y66e4Sxw" class="link-btn" target="_blank">
+            <i class="fa-brands fa-tiktok"></i>
+            <span>تيك توك بصمة فرح</span>
+        </a>
+
+        <a href="https://maps.app.goo.gl/igxgTt3gdP5ZcVDN8?g_st=ic" class="link-btn" target="_blank">
+            <i class="fa-solid fa-map-marker-alt"></i>
+            <span>الموقع بصمة فرح</span>
+        </a>
+
+        <hr class="divider">
+
+        <div class="prices-header">
+            <i class="fa-solid fa-clipboard-list"></i>
+            <span>لوحات الأسعار</span>
+        </div>
+
+        <!-- لوحة قسم الشعر -->
+        <button class="accordion-btn">قسم الشعر <i class="fa-solid fa-chevron-down"></i></button>
+        <div class="accordion-content">
+            <div class="accordion-inner">
+                <div class="price-item"><span>استشوار شعر</span><span class="price-val">50 - 150 SAR</span></div>
+                <div class="price-item"><span>غسيل شعر</span><span class="price-val">15 SAR</span></div>
+                <div class="price-item"><span>رنساج</span><span class="price-val">250 SAR</span></div>
+                <div class="price-item"><span>صبغه لون واحد</span><span class="price-val">230 - 450 SAR</span></div>
+                <div class="price-item"><span>صبغه خصله وحده</span><span class="price-val">25 SAR</span></div>
+                <div class="price-item"><span>ويفي فرشاه</span><span class="price-val">60 - 200 SAR</span></div>
+                <div class="price-item"><span>قص اطراف</span><span class="price-val">50 SAR</span></div>
+                <div class="price-item"><span>قص موديل</span><span class="price-val">70 SAR</span></div>
+                <div class="price-item"><span>قص غره</span><span class="price-val">30 SAR</span></div>
+                <div class="price-item"><span>سيراميك بدون استشوار</span><span class="price-val">60 - 230 SAR</span></div>
+                <div class="price-item"><span>تجديل خصل (ضفائر)</span><span class="price-val">150 - 230 SAR</span></div>
+                <div class="price-item"><span>هايلات مع لون</span><span class="price-val">400 - 1000 SAR</span></div>
+                <div class="price-item"><span>هايلات بدون لون</span><span class="price-val">230 - 500 SAR</span></div>
+                <div class="price-item"><span>تسريحه شعر</span><span class="price-val">180 - 400 SAR</span></div>
+            </div>
+        </div>
+
+        <!-- لوحة قسم العناية بالشعر -->
+        <button class="accordion-btn">قسم العناية بالشعر <i class="fa-solid fa-chevron-down"></i></button>
+        <div class="accordion-content">
+            <div class="accordion-inner">
+                <div class="price-item"><span>بروتين</span><span class="price-val">300 - 1000 SAR</span></div>
+                <div class="price-item"><span>حمام زيت</span><span class="price-val">60 - 100 SAR</span></div>
+                <div class="price-item"><span>فيلر جلسه وحده</span><span class="price-val">150 - 250 SAR</span></div>
+            </div>
+        </div>
+
+        <!-- لوحة خدمات العناية بالوجه -->
+        <button class="accordion-btn">خدمات العناية بالوجه <i class="fa-solid fa-chevron-down"></i></button>
+        <div class="accordion-content">
+            <div class="accordion-inner">
+                <div class="price-item"><span>تشقير حواجب</span><span class="price-val">30 SAR</span></div>
+                <div class="price-item"><span>صبغة حواجب</span><span class="price-val">30 SAR</span></div>
+                <div class="price-item"><span>تشقير وصبغة حواجب</span><span class="price-val">50 SAR</span></div>
+                <div class="price-item"><span>رموش كامله</span><span class="price-val">60 SAR</span></div>
+                <div class="price-item"><span>رموش حبه حبه</span><span class="price-val">70 SAR</span></div>
+                <div class="price-item"><span>رموش مع زبونه</span><span class="price-val">40 SAR</span></div>
+                <div class="price-item"><span>فتله وجه</span><span class="price-val">50 SAR</span></div>
+                <div class="price-item"><span>شنب خيط</span><span class="price-val">30 SAR</span></div>
+                <div class="price-item"><span>مكياج ناعم بدون رموش</span><span class="price-val">200 SAR</span></div>
+                <div class="price-item"><span>مكياج ناعم ب رموش</span><span class="price-val">250 SAR</span></div>
+                <div class="price-item"><span>مكياج سهرة</span><span class="price-val">300 SAR</span></div>
+                <div class="price-item"><span>مكياج سهره مع رموش</span><span class="price-val">350 SAR</span></div>
+                <div class="price-item"><span>تنظيف بشره عادي</span><span class="price-val">150 SAR</span></div>
+                <div class="price-item"><span>تنظيف بشره عميق</span><span class="price-val">230 SAR</span></div>
+                <div class="price-item"><span>وجه ورقبه شمع وفتله</span><span class="price-val">70 SAR</span></div>
+            </div>
+        </div>
+
+        <!-- لوحة خدمات العناية بالجسم -->
+        <button class="accordion-btn">خدمات العناية بالجسم <i class="fa-solid fa-chevron-down"></i></button>
+        <div class="accordion-content">
+            <div class="accordion-inner">
+                <div class="price-item"><span>حمام مغربي</span><span class="price-val">250 SAR</span></div>
+                <div class="price-item"><span>مساج ساعه</span><span class="price-val">250 SAR</span></div>
+                <div class="price-item"><span>مساج نص ساعه</span><span class="price-val">180 SAR</span></div>
+                <div class="price-item"><span>الإبط (حلاوه او شمع)</span><span class="price-val">30 SAR</span></div>
+                <div class="price-item"><span>قدمين (حلاوه او واكس)</span><span class="price-val">180 SAR</span></div>
+                <div class="price-item"><span>حلاوه جسم كامل</span><span class="price-val">300 SAR</span></div>
+                <div class="price-item"><span>بطن</span><span class="price-val">60 SAR</span></div>
+                <div class="price-item"><span>ظهر</span><span class="price-val">70 SAR</span></div>
+                <div class="price-item"><span>نص يدين</span><span class="price-val">58 SAR</span></div>
+                <div class="price-item"><span>نص رجلين</span><span class="price-val">70 SAR</span></div>
+            </div>
+        </div>
+
+        <!-- لوحة العناية باليدين والقدمين -->
+        <button class="accordion-btn">العناية باليدين والقدمين <i class="fa-solid fa-chevron-down"></i></button>
+        <div class="accordion-content">
+            <div class="accordion-inner">
+                <div class="price-item"><span>منكير</span><span class="price-val">50 SAR</span></div>
+                <div class="price-item"><span>بديكير</span><span class="price-val">80 SAR</span></div>
+                <div class="price-item"><span>لون</span><span class="price-val">15 SAR</span></div>
+                <div class="price-item"><span>لون فرنسي</span><span class="price-val">30 SAR</span></div>
+                <div class="price-item"><span>برافين نص يدين</span><span class="price-val">60 SAR</span></div>
+                <div class="price-item"><span>برافين نص رجلين</span><span class="price-val">70 SAR</span></div>
+                <div class="price-item"><span>بديكير منيكير</span><span class="price-val">130 SAR</span></div>
+                <div class="price-item"><span>جل اظافر</span><span class="price-val">300 SAR</span></div>
+                <div class="price-item"><span>اكريلك</span><span class="price-val">400 SAR</span></div>
+                <div class="price-item"><span>رسم ع اظافر</span><span class="price-val">50 SAR</span></div>
+                <div class="price-item"><span>تركيب اظافر</span><span class="price-val">70 SAR</span></div>
+                <div class="price-item"><span>قص اظافر</span><span class="price-val">15 SAR</span></div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- سكربت للتحكم في اللوحات (Accordion) -->
+    <script>
+        var acc = document.getElementsByClassName("accordion-btn");
+        var i;
+
+        for (i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function() {
+                // إغلاق جميع اللوحات الأخرى إذا أردت (اختياري، حاليا مبرمج ليفتح ما تضغط عليه فقط)
+                /*
+                for (var j = 0; j < acc.length; j++) {
+                    if (acc[j] !== this) {
+                        acc[j].classList.remove("active");
+                        acc[j].nextElementSibling.style.maxHeight = null;
+                    }
+                }
+                */
+
+                // تبديل حالة الزر الحالي
+                this.classList.toggle("active");
+
+                // إظهار أو إخفاء المحتوى
+                var content = this.nextElementSibling;
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                } else {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>"""
+
+with open('Basma_Farah_Salon_V4.html', 'w', encoding='utf-8') as f:
+    f.write(html_content)
+
+print("Created Basma_Farah_Salon_V4.html with accordion panels.")
+
